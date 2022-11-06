@@ -12,17 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cl01_introduccion.placeholder.PlaceholderContent;
+import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- */
+
 public class NotaFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private MyNotaRecyclerViewAdapter adapterNotas;
+    NotasInteractionListener mListener;
+    private List<Nota> notaList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -30,8 +31,6 @@ public class NotaFragment extends Fragment {
      */
     public NotaFragment() {
     }
-
-    OnListFragmentInteractionListener mListener;
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
@@ -66,16 +65,18 @@ public class NotaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyNotaRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaList, mListener);
+            recyclerView.setAdapter(adapterNotas);
         }
         return view;
     }
 
     @Override
+    //es el primero que se lanza cuando ponemos un fragmentos en una activity
     public void onAttach(Context context){
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener){
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof NotasInteractionListener){
+            mListener = (NotasInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()+ " must implement OnListFragmentInteractionListener") ;
         }

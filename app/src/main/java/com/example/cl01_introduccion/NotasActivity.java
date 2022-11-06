@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class NotasActivity extends AppCompatActivity implements OnListFragmentInteractionListener {
+public class NotasActivity extends AppCompatActivity implements NotasInteractionListener {
 
 
     @Override
@@ -19,7 +19,17 @@ public class NotasActivity extends AppCompatActivity implements OnListFragmentIn
     }
 
     @Override
-    public void onListFragmentInteraction(String item) {
+    public void editNotaClick(Nota nota) {
+
+    }
+
+    @Override
+    public void eliminaNotaClick(Nota nota) {
+
+    }
+
+    @Override
+    public void favoritaNotaClick(Nota nota) {
 
     }
 }

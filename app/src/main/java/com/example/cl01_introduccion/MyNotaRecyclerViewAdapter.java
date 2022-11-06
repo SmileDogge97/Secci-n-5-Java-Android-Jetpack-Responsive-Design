@@ -6,22 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.cl01_introduccion.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.cl01_introduccion.databinding.FragmentItemBinding;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Nota> mValues;
+    private final NotasInteractionListener mListener;
 
-    public MyNotaRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public MyNotaRecyclerViewAdapter(List<Nota> items, NotasInteractionListener listener) {
         mValues = items;
+        mListener = listener;
     }
 
     @Override
@@ -46,7 +43,7 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public Nota mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
