@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +65,8 @@ public class NotaFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+            final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+            if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180){
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
