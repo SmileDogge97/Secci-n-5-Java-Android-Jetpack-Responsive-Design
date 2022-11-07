@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.cl01_introduccion.databinding.FragmentItemBinding;
 
@@ -31,8 +32,18 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.tvTitulo.setText(holder.mItem.getTitulo());
+        holder.tvContenido.setText(holder.mItem.getContenido());
+
+        if (holder.mItem.isFavorita()){
+            holder.ivFavorita.setImageResource(R.drawable.ic_baseline_star_24);
+        }
+
+        holder.ivFavorita.setOnClickListener((v) -> {
+            if (null!= mListener){
+                mListener.favoritaNotaClick(holder.mItem);
+            }
+        });
     }
 
     @Override
@@ -41,19 +52,21 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView tvTitulo;
+        public final TextView tvContenido;
+        public final ImageView ivFavorita;
         public Nota mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            tvTitulo = binding.textViewTitulo;
+            tvContenido = binding.textViewContenido;
+            ivFavorita = binding.imageViewFavorita;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvTitulo.getText() + "'";
         }
     }
 }
