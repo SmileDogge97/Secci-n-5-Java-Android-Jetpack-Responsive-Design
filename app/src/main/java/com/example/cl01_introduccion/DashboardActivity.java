@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class NotasActivity extends AppCompatActivity implements NotasInteractionListener {
+public class DashboardActivity extends AppCompatActivity {
 
 
     @Override
@@ -18,18 +18,5 @@ public class NotasActivity extends AppCompatActivity implements NotasInteraction
 
     }
 
-    @Override
-    public void editNotaClick(Nota nota) {
 
-    }
-
-    @Override
-    public void eliminaNotaClick(Nota nota) {
-
-    }
-
-    @Override
-    public void favoritaNotaClick(Nota nota) {
-
-    }
 }

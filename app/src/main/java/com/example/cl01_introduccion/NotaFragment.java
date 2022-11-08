@@ -27,7 +27,6 @@ public class NotaFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private MyNotaRecyclerViewAdapter adapterNotas;
-    NotasInteractionListener mListener;
     private List<Nota> notaList;
 
     /**
@@ -81,20 +80,11 @@ public class NotaFragment extends Fragment {
             notaList.add(new Nota("Recordar", "He aparcado el coche en la calle República Argenina, no olvidarme de pagar en el parquímetro", false, android.R.color.holo_green_light));
             notaList.add(new Nota("Cumpleaños (fiesta)", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", true, android.R.color.holo_orange_light));
 
-            adapterNotas = new MyNotaRecyclerViewAdapter(notaList, mListener);
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaList, getActivity());
             recyclerView.setAdapter(adapterNotas);
         }
         return view;
     }
 
-    @Override
-    //es el primero que se lanza cuando ponemos un fragmentos en una activity
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if (context instanceof NotasInteractionListener){
-            mListener = (NotasInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()+ " must implement OnListFragmentInteractionListener") ;
-        }
-    }
+
 }
