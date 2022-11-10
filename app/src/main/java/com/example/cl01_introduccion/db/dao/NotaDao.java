@@ -1,10 +1,12 @@
 package com.example.cl01_introduccion.db.dao;
 
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
+
 
 import com.example.cl01_introduccion.db.entity.NotaEntity;
 

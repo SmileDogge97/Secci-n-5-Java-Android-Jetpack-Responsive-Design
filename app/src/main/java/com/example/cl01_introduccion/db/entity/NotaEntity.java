@@ -1,7 +1,8 @@
 package com.example.cl01_introduccion.db.entity;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "notas")
 public class NotaEntity {
@@ -13,8 +14,7 @@ public class NotaEntity {
     public boolean favorita;
     public String color;
 
-    public NotaEntity(int id, String titulo, String contenido, boolean favorita, String color) {
-        this.id = id;
+    public NotaEntity(String titulo, String contenido, boolean favorita, String color) {
         this.titulo = titulo;
         this.contenido = contenido;
         this.favorita = favorita;

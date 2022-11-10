@@ -16,10 +16,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
+import com.example.cl01_introduccion.db.entity.NotaEntity;
+
 public class NuevaNotaDialogFragment extends DialogFragment {
 
-    private NuevaNotaDialogViewModel mViewModel;
-    public static NuevaNotaDialogFragment newInstance() {
+    public static NuevaNotaDialogFragment newInstance(){
         return new NuevaNotaDialogFragment();
     }
     private View view;
@@ -31,13 +32,6 @@ public class NuevaNotaDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_nueva_nota_dialog, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(NuevaNotaDialogViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override
@@ -58,11 +52,16 @@ public class NuevaNotaDialogFragment extends DialogFragment {
                                 color = "verde"; break;
                         }
                         boolean esFavorita = swNotaFavorita.isChecked();
+
+                        //Comunicar al ViewModel el nuevo dato.
+                        NuevaNotaDialogViewModel mViewModel = new ViewModelProvider(getActivity()).get(NuevaNotaDialogViewModel.class);
+                        mViewModel.insertarNota(new NotaEntity(titulo, contenido, esFavorita, color));
+                        dialog.dismiss();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        dialog.dismiss();
                     }
                 });
 

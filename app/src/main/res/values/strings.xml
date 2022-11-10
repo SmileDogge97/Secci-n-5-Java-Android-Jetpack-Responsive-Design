@@ -6,4 +6,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_favoritas">Favoritas</string>
     <string name="title_user_profile">Mi perfil</string>
+    <string name="Action_add_nota">Nueva nota</string>
 </resources>

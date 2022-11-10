@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<NotaEntity> mValues;
+    private List<NotaEntity> mValues;
     private Context ctx;
 
     public MyNotaRecyclerViewAdapter(List<NotaEntity> items, Context ctx) {
@@ -38,11 +39,11 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
         holder.tvTitulo.setText(holder.mItem.getTitulo());
         holder.tvContenido.setText(holder.mItem.getContenido());
 
-        if (holder.mItem.isFavorita()){
+        if (holder.mItem.isFavorita()) {
             holder.ivFavorita.setImageResource(R.drawable.ic_baseline_star_24);
         }
 
-        holder.ivFavorita.setOnClickListener((v) -> {
+        holder.ivFavorita.setOnClickListener(view -> {
 
         });
     }
@@ -50,6 +51,11 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public void setNuevasNotas(List<NotaEntity> nuevasNotas){
+        this.mValues = nuevasNotas;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

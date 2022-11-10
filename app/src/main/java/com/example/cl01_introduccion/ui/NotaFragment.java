@@ -1,20 +1,30 @@
 package com.example.cl01_introduccion.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.example.cl01_introduccion.NuevaNotaDialogFragment;
+import com.example.cl01_introduccion.NuevaNotaDialogViewModel;
 import com.example.cl01_introduccion.R;
 import com.example.cl01_introduccion.db.entity.NotaEntity;
 
@@ -30,6 +40,7 @@ public class NotaFragment extends Fragment {
     private int mColumnCount = 2;
     private MyNotaRecyclerViewAdapter adapterNotas;
     private List<NotaEntity> notaList;
+    private NuevaNotaDialogViewModel notaViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -78,14 +89,47 @@ public class NotaFragment extends Fragment {
             }
 
             notaList = new ArrayList<>();
-            notaList.add(new NotaEntity("Lista de la compra", "comprar pan tostado", true, android.R.color.holo_blue_light));
-            notaList.add(new NotaEntity("Recordar", "He aparcado el coche en la calle República Argenina, no olvidarme de pagar en el parquímetro", false, android.R.color.holo_green_light));
-            notaList.add(new NotaEntity("Cumpleaños (fiesta)", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", true, android.R.color.holo_orange_light));
+
 
             adapterNotas = new MyNotaRecyclerViewAdapter(notaList, getActivity());
             recyclerView.setAdapter(adapterNotas);
+
+            lanzarViewModel();
         }
         return view;
+    }
+
+    private void lanzarViewModel() {
+        notaViewModel = ViewModelProviders.of(getActivity()).get(NuevaNotaDialogViewModel.class);
+        notaViewModel.getAllNotas().observe(getActivity(), new Observer<List<NotaEntity>>() {
+            @Override
+            public void onChanged(List<NotaEntity> notaEntities) {
+                adapterNotas.setNuevasNotas(notaEntities);
+            }
+        });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu_nota_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add_nota:
+                mostrarDialogoNuevaNota();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void mostrarDialogoNuevaNota() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        NuevaNotaDialogFragment dialogNuevaNota = new NuevaNotaDialogFragment();
+        dialogNuevaNota.show(fm, "NuevaNotaDialogFragment");
+
     }
 
 
